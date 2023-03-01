@@ -1,0 +1,33 @@
+name: Build Tomcat
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out tomcat-users.xml
+        uses: actions/checkout@v3
+
+      - name: List project files and java version
+        run: |
+          ls -ltr
+          java -version
+
+      - name: Check out Apache Tomcat
+        uses: actions/checkout@v3
+        with:
+          repository: apache/tomcat
+          ref: master
+          path: ./tomcat
+
+      - name: Setup Java 9
+        uses: actions/setup-java@1
+        with:
+          java-version: '9.0.4'
+          java-package: jdk
+          architecture: x64
+
+      - name: List project files and java version
+        run: |
+          ls -ltr
+          java -version
